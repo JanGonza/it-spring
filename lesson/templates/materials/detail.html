@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %} {{ material.title }} {% endblock %}
+
+{% block content %}
+    <a href="{% url "lesson:all_materials" %}" >All materials</a>
+    <h1>{{ material.title }}</h1>
+    <h2>{{ material.title }}</h2>
+    <p>
+        Material published {{ material.publish }} by {{ material.author }}
+    </p>
+    <p>{{ material.body|linebreaks }}</p>
+
+    <p>
+        {% with material.comments.count as total_comments %}
+            <h2> {{ total_comments }} comment{{ total_comments|pluralize }}</h2>
+        {% endwith %}
+
+        {% for comment in material.comments.all %}
+            <p>Comment #{{ forloop.counter }} by {{ comment.name }} {{ comment.created }}</p>
+            {{ comment.body }}
+        {% empty %}
+            No comments!!!!!!!!!!!
+        {% endfor %}
+
+    {% if new_comment %}
+        comment was created
+    {%  else %}
+        <form action="." method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="submit" value="Comment it!!!!!">
+        </form>
+    {% endif %}
+
+    </p>
+
+    <p>
+        <a href="{% url "lesson:share_material" material.id %}">Share this post</a>
+    </p>
+{% endblock %}

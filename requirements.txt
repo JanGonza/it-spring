@@ -1,0 +1,4 @@
+django==3.0.3
+Pillow
+ddt
+django-bootstrap4

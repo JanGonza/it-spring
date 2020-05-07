@@ -1,0 +1,47 @@
+{% load bootstrap4 %}
+{% load static %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} MY DEFAULT TITLE {% endblock %}</title>
+    <link href="{% static "styles.css" %}" rel="stylesheet">
+</head>
+<body>
+<header>
+    {% if request.user.is_authenticated %}
+        HI {{ request.user.first_name }}
+        <a href="{% url "lesson:logout" %}">logout</a>
+        <a href="{% url "lesson:profile" %}">Profile</a>
+    {% else %}
+        <a href="{% url "lesson:login" %}">login</a>
+        <a href="{% url "lesson:register" %}">register</a>
+    {% endif %}
+</header>
+<div class="container-flex m-4">
+    <div class="row mb-1">
+        <div class="col-sm-9 border border-primary rounded ">
+             {% block content %}
+             {% endblock %}
+        </div>
+        <div class="col-sm-3 border border-primary rounded">
+             {% block menu %}
+             {% endblock %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-9  border border-primary rounded">
+            Maxim Belov
+        </div>
+        <div class="col-sm-3  border border-primary rounded">
+             Python web dev, IT Academy
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

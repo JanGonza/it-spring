@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %} Materials list {% endblock %}
+
+{% block content %}
+    <h1>My Materials List</h1>
+    {% for material in materials %}
+        <h2>
+            <a href="{{ material.get_absolute_url }}">
+                {{ material.title }}
+            </a>
+        </h2>
+        <p>
+            Material published {{ material.publish }} by {{ material.author }}
+        </p>
+        {{ material.body|truncatewords_html:5|linebreaks }}
+        <p>
+            All lessons for this material:
+            {% for lesson in material.lessons.all %}
+                <br>
+                <b>{{ lesson.title }}</b>
+            {% endfor %}
+        <hr>
+        </p>
+    {% endfor %}
+    <a href="{% url "lesson:create_form" %}"> create new</a>
+{% endblock %}

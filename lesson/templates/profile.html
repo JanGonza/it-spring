@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Person profile{% endblock %}
+
+{% block content %}
+    <p><a href="{% url "lesson:edit_user" %}">EDIT PROFILE</a></p>
+    <p>birthday: {{ user.profile.birth }}</p>
+    <p>name: {{ user.first_name|add:user.last_name }}</p>
+    <p><img src="{{ user.profile.photo.url }}" alt="alt text"></p>
+{% endblock %}

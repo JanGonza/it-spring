@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %} {{ lesson.title }} {% endblock %}
+
+{% block content %}
+    <a href="{% url "lesson:all_lessons" %}" >All lessons</a>
+    <h1>{{ lesson.title }}</h1>
+    <p>{{ lesson.notes|linebreaks }}</p>
+
+    <p>
+        <h4>Materials</h4>
+
+        {% for material in lesson.materials.all %}
+            <a href="{{ material.get_absolute_url  }}">{{ material.title }}</a> <br>
+        {% endfor %}
+    </p>
+{% endblock %}
+
+
+
+
+{% block menu %}
+    <h1>Lessons</h1>
+    {% for this in lessons %}
+        {% if this == lesson %}
+            <a class="nav-link disabled" href="{{ this.get_absolute_url }}">
+                {{ this.title }}
+            </a>
+        {% else %}
+            <a class="nav-link active" href="{{ this.get_absolute_url }}">
+                {{ this.title }}
+            </a>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
